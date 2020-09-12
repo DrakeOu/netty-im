@@ -1,4 +1,4 @@
-package protocol;
+package serializer;
 
 public interface SerializeAlgorithm {
 
