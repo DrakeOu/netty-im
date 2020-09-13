@@ -1,15 +1,22 @@
 package protocol;
+import lombok.Builder;
 import lombok.Data;
-import protocol.Packet;
+import lombok.experimental.Tolerate;
 
 @Data
+@Builder
 public class LoginRequestPacket extends Packet {
 
-    private Integer userId;
+    private String userId;
 
     private String username;
 
     private String password;
+
+    @Tolerate
+    LoginRequestPacket(){
+
+    }
 
     @Override
     public Byte getCommand() {

@@ -18,7 +18,8 @@ public abstract class Packet {
 
     protected enum CommandEnum{
 
-        LOGIN_REQUEST(1);
+        LOGIN_REQUEST(1), LOGIN_RESPONSE(2);
+
 
         CommandEnum(Integer c){
             this.command = c.byteValue();

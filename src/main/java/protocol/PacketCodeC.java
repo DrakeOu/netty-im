@@ -11,6 +11,7 @@ import java.util.Map;
 
 public class PacketCodeC {
 
+    public static final PacketCodeC INSTANCE = new PacketCodeC();
     private static final int MAGIC_NUMBER = 0x12345678;
     private static final Map<Byte, Class<? extends Packet>> packetTypeMap;
     private static final Map<Integer, Serializer> serializerMap;
@@ -18,16 +19,17 @@ public class PacketCodeC {
     static {
         packetTypeMap = new HashMap<>();
         packetTypeMap.put(Packet.CommandEnum.LOGIN_REQUEST.getCommand(), LoginRequestPacket.class);
+        packetTypeMap.put(Packet.CommandEnum.LOGIN_RESPONSE.getCommand(), LoginResponsePacket.class);
 
         serializerMap = new HashMap<>();
         serializerMap.put(Serializer.JSON_SERIALIZER, new JSONSerializer());
     }
 
-    public ByteBuf encode(Packet packet){
+    public ByteBuf encode(ByteBufAllocator allocator, Packet packet){
         //下面开始按协议要求编码
 
         //1.创建ByteBuf对象
-        ByteBuf byteBuf = ByteBufAllocator.DEFAULT.ioBuffer();
+        ByteBuf byteBuf = allocator.ioBuffer();
         //2.序列化对象
         byte[] bytes = Serializer.DEFAULT.serialize(packet);
 
