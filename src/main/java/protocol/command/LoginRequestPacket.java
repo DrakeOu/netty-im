@@ -1,7 +1,8 @@
-package protocol;
+package protocol.command;
 import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.Tolerate;
+import protocol.Packet;
 
 @Data
 @Builder

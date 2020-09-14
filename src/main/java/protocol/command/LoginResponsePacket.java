@@ -1,9 +1,10 @@
-package protocol;
+package protocol.command;
 
 import lombok.Data;
+import protocol.Packet;
 
 @Data
-public class LoginResponsePacket extends Packet{
+public class LoginResponsePacket extends Packet {
 
     private Boolean success;
 

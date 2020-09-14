@@ -3,10 +3,12 @@ package client;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import protocol.LoginRequestPacket;
-import protocol.LoginResponsePacket;
+import protocol.command.LoginRequestPacket;
+import protocol.command.LoginResponsePacket;
 import protocol.Packet;
 import protocol.PacketCodeC;
+import protocol.command.MessageResponsePacket;
+import utils.LoginUtil;
 
 import java.util.Date;
 import java.util.UUID;
@@ -42,8 +44,14 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
 
         if(packet instanceof LoginResponsePacket){
             LoginResponsePacket responsePacket = (LoginResponsePacket) packet;
-            if(responsePacket.getSuccess()) System.out.println("登陆成功: " + responsePacket.getMsg());
+            if(responsePacket.getSuccess()) {
+                LoginUtil.maskAsLogin(ctx.channel());
+                System.out.println("登陆成功: " + responsePacket.getMsg());
+            }
             else System.err.println("登陆失败: " + responsePacket.getMsg());
+        }else if(packet instanceof MessageResponsePacket){
+            MessageResponsePacket messageResponsePacket = (MessageResponsePacket) packet;
+            System.out.println("接收到服务器响应: " + messageResponsePacket.getMessage());
         }
     }
 }

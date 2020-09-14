@@ -3,6 +3,10 @@ package protocol;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
+import protocol.command.LoginRequestPacket;
+import protocol.command.LoginResponsePacket;
+import protocol.command.MessageRequestPacket;
+import protocol.command.MessageResponsePacket;
 import serializer.impl.JSONSerializer;
 import serializer.Serializer;
 
@@ -20,6 +24,8 @@ public class PacketCodeC {
         packetTypeMap = new HashMap<>();
         packetTypeMap.put(Packet.CommandEnum.LOGIN_REQUEST.getCommand(), LoginRequestPacket.class);
         packetTypeMap.put(Packet.CommandEnum.LOGIN_RESPONSE.getCommand(), LoginResponsePacket.class);
+        packetTypeMap.put(Packet.CommandEnum.MESSAGE_REQUEST.getCommand(), MessageRequestPacket.class);
+        packetTypeMap.put(Packet.CommandEnum.MESSAGE_RESPONSE.getCommand(), MessageResponsePacket.class);
 
         serializerMap = new HashMap<>();
         serializerMap.put(Serializer.JSON_SERIALIZER, new JSONSerializer());

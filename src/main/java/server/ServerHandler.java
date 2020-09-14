@@ -3,10 +3,12 @@ package server;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import protocol.LoginRequestPacket;
-import protocol.LoginResponsePacket;
+import protocol.command.LoginRequestPacket;
+import protocol.command.LoginResponsePacket;
 import protocol.Packet;
 import protocol.PacketCodeC;
+import protocol.command.MessageRequestPacket;
+import protocol.command.MessageResponsePacket;
 
 public class ServerHandler extends ChannelInboundHandlerAdapter {
 
@@ -33,6 +35,16 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
             ByteBuf resp = PacketCodeC.INSTANCE.encode(ctx.alloc(), loginResponsePacket);
 
             ctx.channel().writeAndFlush(resp);
+        }else if(packet instanceof MessageRequestPacket){
+            MessageRequestPacket messageRequestPacket = (MessageRequestPacket) packet;
+
+            System.out.println("接收到客户端输入:" + messageRequestPacket.getMessage());
+            //构造返回
+            MessageResponsePacket messageResponsePacket = new MessageResponsePacket();
+            messageResponsePacket.setMessage("【客户端收到】: " + messageRequestPacket.getMessage());
+            ByteBuf encode = PacketCodeC.INSTANCE.encode(ctx.alloc(), messageResponsePacket);
+
+            ctx.channel().writeAndFlush(encode);
         }
     }
 

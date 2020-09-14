@@ -18,7 +18,7 @@ public abstract class Packet {
 
     protected enum CommandEnum{
 
-        LOGIN_REQUEST(1), LOGIN_RESPONSE(2);
+        LOGIN_REQUEST(1), LOGIN_RESPONSE(2), MESSAGE_REQUEST(3), MESSAGE_RESPONSE(4);
 
 
         CommandEnum(Integer c){
