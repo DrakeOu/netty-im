@@ -32,9 +32,9 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
             loginResponsePacket.setMsg(valid?"登陆成功!":"登陆失败");
 
             //序列化响应
-            ByteBuf resp = PacketCodeC.INSTANCE.encode(ctx.alloc(), loginResponsePacket);
+//            ByteBuf resp = PacketCodeC.INSTANCE.encode(ctx.alloc(), loginResponsePacket);
 
-            ctx.channel().writeAndFlush(resp);
+//            ctx.channel().writeAndFlush(resp);
         }else if(packet instanceof MessageRequestPacket){
             MessageRequestPacket messageRequestPacket = (MessageRequestPacket) packet;
 
@@ -42,9 +42,9 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
             //构造返回
             MessageResponsePacket messageResponsePacket = new MessageResponsePacket();
             messageResponsePacket.setMessage("【客户端收到】: " + messageRequestPacket.getMessage());
-            ByteBuf encode = PacketCodeC.INSTANCE.encode(ctx.alloc(), messageResponsePacket);
+//            ByteBuf encode = PacketCodeC.INSTANCE.encode(ctx.alloc(), messageResponsePacket);
 
-            ctx.channel().writeAndFlush(encode);
+//            ctx.channel().writeAndFlush(encode);
         }
     }
 

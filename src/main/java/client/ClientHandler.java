@@ -27,10 +27,10 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
                 .build();
 
         //序列化对象
-        ByteBuf byteBuf = PacketCodeC.INSTANCE.encode(ctx.alloc(), loginRequestPacket);
+//        ByteBuf byteBuf = PacketCodeC.INSTANCE.encode(ctx.alloc(), loginRequestPacket);
 
         //传输数据
-        ctx.channel().writeAndFlush(byteBuf);
+//        ctx.channel().writeAndFlush(byteBuf);
     }
 
     @Override

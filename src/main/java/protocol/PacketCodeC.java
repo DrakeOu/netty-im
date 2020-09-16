@@ -31,11 +31,11 @@ public class PacketCodeC {
         serializerMap.put(Serializer.JSON_SERIALIZER, new JSONSerializer());
     }
 
-    public ByteBuf encode(ByteBufAllocator allocator, Packet packet){
+    public void encode(ByteBuf byteBuf, Packet packet){
         //下面开始按协议要求编码
 
         //1.创建ByteBuf对象
-        ByteBuf byteBuf = allocator.ioBuffer();
+//        ByteBuf byteBuf = allocator.ioBuffer();
         //2.序列化对象
         byte[] bytes = Serializer.DEFAULT.serialize(packet);
 
@@ -47,7 +47,6 @@ public class PacketCodeC {
         byteBuf.writeInt(bytes.length);
         byteBuf.writeBytes(bytes);
 
-        return byteBuf;
     }
 
     public Packet decode(ByteBuf byteBuf){
