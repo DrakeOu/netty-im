@@ -8,8 +8,10 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import protocol.PacketDecoder;
 import protocol.PacketEncoder;
+import protocol.Spliter;
 
 public class NettyServer {
 
@@ -30,8 +32,10 @@ public class NettyServer {
                     @Override
                     protected void initChannel(SocketChannel ch) throws Exception {
                         ch.pipeline()
+                                .addLast(new Spliter())
                                 .addLast(new PacketDecoder())
                                 .addLast(new LoginRequestHandler())
+                                .addLast(new AuthHandler())
                                 .addLast(new MessageRequestHandler())
                                 .addLast(new PacketEncoder());
                     }

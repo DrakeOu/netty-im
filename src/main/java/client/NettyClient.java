@@ -9,9 +9,11 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import protocol.PacketCodeC;
 import protocol.PacketDecoder;
 import protocol.PacketEncoder;
+import protocol.Spliter;
 import protocol.command.MessageRequestPacket;
 import utils.LoginUtil;
 
@@ -39,6 +41,8 @@ public class NettyClient {
                     @Override
                     protected void initChannel(SocketChannel ch) throws Exception {
                         ch.pipeline()
+                                //添加拆包粘包处理器
+                                .addLast(new Spliter())
                                 .addLast(new PacketDecoder())
                                 .addLast(new LoginResponseHandler())
                                 .addLast(new MessageResponseHandler())
