@@ -14,11 +14,14 @@ import protocol.PacketCodeC;
 import protocol.PacketDecoder;
 import protocol.PacketEncoder;
 import protocol.Spliter;
+import protocol.command.LoginRequestPacket;
 import protocol.command.MessageRequestPacket;
 import utils.LoginUtil;
+import utils.SessionUtil;
 
 import java.util.Date;
 import java.util.Scanner;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 public class NettyClient {
@@ -72,18 +75,33 @@ public class NettyClient {
     }
 
     private static void startConsoleThread(Channel channel){
+        Scanner scanner = new Scanner(System.in);
         new Thread(()->{
             while(!Thread.interrupted()){
-                //检查登陆
-                if(LoginUtil.hasLogin(channel)){
-                    System.out.println("输入内容到客户端");
-                    Scanner scanner = new Scanner(System.in);
+                if(!SessionUtil.hasLogin(channel)){
+                    System.out.println("输入用户名登陆");
+
                     String line = scanner.nextLine();
 
+                    LoginRequestPacket login = LoginRequestPacket.builder()
+                            .username(line)
+                            .password("pwd")
+                            .userId(UUID.randomUUID().toString().substring(0, 4))
+                            .build();
+
+                    channel.writeAndFlush(login);
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }else{
+                    String toUserId = scanner.next();
+                    String message = scanner.next();
+
                     MessageRequestPacket messageRequestPacket = new MessageRequestPacket();
-                    messageRequestPacket.setMessage(line);
-//                    ByteBuf byteBuf = PacketCodeC.INSTANCE.encode(channel.alloc(), messageRequestPacket);
-//
+                    messageRequestPacket.setMessage(message);
+                    messageRequestPacket.setToUserId(toUserId);
                     channel.writeAndFlush(messageRequestPacket);
                 }
             }

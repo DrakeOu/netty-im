@@ -2,14 +2,16 @@ package client;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import protocol.command.MessageRequestPacket;
 import protocol.command.MessageResponsePacket;
 
 public class MessageResponseHandler extends SimpleChannelInboundHandler<MessageResponsePacket> {
 
 
     @Override
-    protected void channelRead0(ChannelHandlerContext channelHandlerContext, MessageResponsePacket messageResponsePacket) throws Exception {
-        System.out.println("接收到服务器响应: " + messageResponsePacket.getMessage());
+    protected void channelRead0(ChannelHandlerContext ctx, MessageResponsePacket messageResponsePacket) throws Exception {
+        String fromUser = messageResponsePacket.getFromUser();
+        String fromUserId = messageResponsePacket.getFromUserId();
+
+        System.out.println("接收到:" + fromUserId + "-" + fromUser + "的消息" + messageResponsePacket.getMessage());
     }
 }

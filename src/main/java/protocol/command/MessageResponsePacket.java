@@ -6,6 +6,8 @@ import protocol.Packet;
 @Data
 public class MessageResponsePacket extends Packet {
 
+    private String fromUser;
+    private String fromUserId;
     private String message;
 
     @Override
