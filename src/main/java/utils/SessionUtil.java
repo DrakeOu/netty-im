@@ -5,6 +5,8 @@ import io.netty.channel.group.ChannelGroup;
 import protocol.Attributes;
 import protocol.Session;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -34,5 +36,34 @@ public class SessionUtil {
 
     public static Channel getChannel(String userId){
         return userIdChannelMap.get(userId);
+    }
+
+    public static ChannelGroup getChannelGroup(String groupId) {
+        return groupIdChannelGroupMap.get(groupId);
+    }
+
+    public static boolean addToChannelGroup(Channel channel, String groupId){
+        ChannelGroup channelGroup = groupIdChannelGroupMap.get(groupId);
+
+        boolean result = false;
+        if(null != channelGroup){
+            channelGroup.add(channel);
+            result = true;
+        }
+        return result;
+    }
+
+    public static boolean putChannelGroup(ChannelGroup channelGroup, String groupId){
+        groupIdChannelGroupMap.put(groupId, channelGroup);
+        return true;
+    }
+
+    public static List<String> getGroupMembers(String groupId){
+        List<String> members = new ArrayList<>();
+        if(groupIdChannelGroupMap.containsKey(groupId)){
+            groupIdChannelGroupMap.get(groupId)
+                    .forEach(channel -> members.add(SessionUtil.getSession(channel).getUserName()));
+        }
+        return members;
     }
 }

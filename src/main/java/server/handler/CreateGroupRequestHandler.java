@@ -41,10 +41,13 @@ public class CreateGroupRequestHandler extends SimpleChannelInboundHandler<Creat
                 });
 
         //3.创建响应结果
-
+        String groupId = IDUtil.randomUserId();
         responsePacket.setSuccess(true);
-        responsePacket.setGroupId(IDUtil.randomUserId());
+        responsePacket.setGroupId(groupId);
         responsePacket.setNameList(nameList);
+
+        //4.添加到MAP中
+        SessionUtil.putChannelGroup(channelGroup, groupId);
 
         channelGroup.writeAndFlush(responsePacket);
 

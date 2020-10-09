@@ -2,14 +2,8 @@ package protocol;
 
 
 import io.netty.buffer.ByteBuf;
-import protocol.request.CreateGroupRequestPacket;
-import protocol.request.LoginRequestPacket;
-import protocol.request.LogoutRequestPacket;
-import protocol.response.CreateGroupResponsePacket;
-import protocol.response.LoginResponsePacket;
-import protocol.request.MessageRequestPacket;
-import protocol.response.LogoutResponsePacket;
-import protocol.response.MessageResponsePacket;
+import protocol.request.*;
+import protocol.response.*;
 import serializer.impl.JSONSerializer;
 import serializer.Serializer;
 
@@ -33,6 +27,12 @@ public class PacketCodeC {
         packetTypeMap.put(Packet.CommandEnum.LOGOUT_RESPONSE.getCommand(), LogoutResponsePacket.class);
         packetTypeMap.put(Packet.CommandEnum.CREATE_GROUP_REQUEST.getCommand(), CreateGroupRequestPacket.class);
         packetTypeMap.put(Packet.CommandEnum.CREATE_GROUP_RESPONSE.getCommand(), CreateGroupResponsePacket.class);
+        packetTypeMap.put(Packet.CommandEnum.JOIN_GROUP_REQUEST.getCommand(), JoinGroupRequestPacket.class);
+        packetTypeMap.put(Packet.CommandEnum.JOIN_GROUP_RESPONSE.getCommand(), JoinGroupResponsePacket.class);
+        packetTypeMap.put(Packet.CommandEnum.QUIT_GROUP_REQUEST.getCommand(), QuitGroupRequestPacket.class);
+        packetTypeMap.put(Packet.CommandEnum.QUIT_GROUP_RESPONSE.getCommand(), QuitGroupResponsePacket.class);
+        packetTypeMap.put(Packet.CommandEnum.GROUP_MSG_REQUEST.getCommand(), GroupMsgRequestPacket.class);
+        packetTypeMap.put(Packet.CommandEnum.GROUP_MSG_RESPONSE.getCommand(), GroupMsgResponsePacket.class);
 
         serializerMap = new HashMap<>();
         serializerMap.put(Serializer.JSON_SERIALIZER, new JSONSerializer());
