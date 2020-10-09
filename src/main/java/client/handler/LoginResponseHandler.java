@@ -1,19 +1,10 @@
 package client.handler;
 
-import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import protocol.Packet;
-import protocol.PacketCodeC;
 import protocol.Session;
-import protocol.command.LoginRequestPacket;
-import protocol.command.LoginResponsePacket;
-import protocol.command.MessageResponsePacket;
-import utils.LoginUtil;
+import protocol.response.LoginResponsePacket;
 import utils.SessionUtil;
-
-import java.util.Date;
-import java.util.UUID;
 
 public class LoginResponseHandler extends SimpleChannelInboundHandler<LoginResponsePacket> {
 

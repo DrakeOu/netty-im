@@ -3,8 +3,9 @@ package server.handler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import protocol.Session;
-import protocol.command.LoginRequestPacket;
-import protocol.command.LoginResponsePacket;
+import protocol.request.LoginRequestPacket;
+import protocol.response.LoginResponsePacket;
+import utils.IDUtil;
 import utils.SessionUtil;
 
 import java.util.UUID;
@@ -15,7 +16,7 @@ public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginReques
         System.out.println(loginRequestPacket.getUsername() + " 登陆");
         //保存会话
         Session session = Session.builder()
-                .userId(randomUserId())
+                .userId(IDUtil.randomUserId())
                 .userName(loginRequestPacket.getUsername()).build();
         SessionUtil.bindSession(session, ctx.channel());
         //构造响应体
@@ -34,7 +35,4 @@ public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginReques
         return true;
     }
 
-    private static String randomUserId() {
-        return UUID.randomUUID().toString().split("-")[0];
-    }
 }

@@ -2,7 +2,7 @@ package client.handler;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import protocol.command.MessageResponsePacket;
+import protocol.response.MessageResponsePacket;
 
 public class MessageResponseHandler extends SimpleChannelInboundHandler<MessageResponsePacket> {
 

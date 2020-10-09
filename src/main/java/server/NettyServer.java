@@ -6,12 +6,10 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import protocol.PacketDecoder;
-import protocol.PacketEncoder;
-import protocol.Spliter;
-import server.handler.AuthHandler;
-import server.handler.LoginRequestHandler;
-import server.handler.MessageRequestHandler;
+import codec.PacketDecoder;
+import codec.PacketEncoder;
+import codec.Spliter;
+import server.handler.*;
 
 public class NettyServer {
 
@@ -37,6 +35,8 @@ public class NettyServer {
                                 .addLast(new LoginRequestHandler())
                                 .addLast(new AuthHandler())
                                 .addLast(new MessageRequestHandler())
+                                .addLast(new LogoutRequestHandler())
+                                .addLast(new CreateGroupRequestHandler())
                                 .addLast(new PacketEncoder());
                     }
                 });

@@ -1,8 +1,9 @@
-package protocol;
+package codec;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
+import protocol.PacketCodeC;
 
 import java.util.List;
 

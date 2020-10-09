@@ -1,4 +1,4 @@
-package protocol.command;
+package protocol.request;
 import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.Tolerate;

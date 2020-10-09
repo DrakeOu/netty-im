@@ -3,12 +3,12 @@ package server.handler;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import protocol.command.LoginRequestPacket;
-import protocol.command.LoginResponsePacket;
+import protocol.request.LoginRequestPacket;
+import protocol.response.LoginResponsePacket;
 import protocol.Packet;
 import protocol.PacketCodeC;
-import protocol.command.MessageRequestPacket;
-import protocol.command.MessageResponsePacket;
+import protocol.request.MessageRequestPacket;
+import protocol.response.MessageResponsePacket;
 
 public class ServerHandler extends ChannelInboundHandlerAdapter {
 

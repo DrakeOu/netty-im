@@ -4,8 +4,8 @@ import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import protocol.Session;
-import protocol.command.MessageRequestPacket;
-import protocol.command.MessageResponsePacket;
+import protocol.request.MessageRequestPacket;
+import protocol.response.MessageResponsePacket;
 import utils.SessionUtil;
 
 public class MessageRequestHandler extends SimpleChannelInboundHandler<MessageRequestPacket> {

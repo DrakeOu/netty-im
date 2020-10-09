@@ -1,4 +1,4 @@
-package protocol.command;
+package protocol.response;
 
 import lombok.Data;
 import protocol.Packet;

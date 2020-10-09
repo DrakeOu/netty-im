@@ -1,4 +1,4 @@
-package protocol.command;
+package protocol.response;
 
 import lombok.Data;
 import protocol.Packet;
@@ -8,8 +8,6 @@ public class LoginResponsePacket extends Packet {
 
     private String userId;
     private String userName;
-
-    private Boolean success;
 
     private String msg;
 

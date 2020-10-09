@@ -3,11 +3,11 @@ package client.handler;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import protocol.command.LoginRequestPacket;
-import protocol.command.LoginResponsePacket;
+import protocol.request.LoginRequestPacket;
+import protocol.response.LoginResponsePacket;
 import protocol.Packet;
 import protocol.PacketCodeC;
-import protocol.command.MessageResponsePacket;
+import protocol.response.MessageResponsePacket;
 import utils.LoginUtil;
 
 import java.util.Date;

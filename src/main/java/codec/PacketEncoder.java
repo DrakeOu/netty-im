@@ -1,8 +1,10 @@
-package protocol;
+package codec;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
+import protocol.PacketCodeC;
+import protocol.Packet;
 
 public class PacketEncoder extends MessageToByteEncoder<Packet> {
     @Override

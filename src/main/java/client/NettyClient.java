@@ -1,6 +1,10 @@
 package client;
 
+import client.console.ConsoleCommandManager;
+import client.console.LoginConsoleCommand;
+import client.handler.CreateGroupResponseHandler;
 import client.handler.LoginResponseHandler;
+import client.handler.LogoutResponseHandler;
 import client.handler.MessageResponseHandler;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
@@ -10,16 +14,15 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import protocol.PacketDecoder;
-import protocol.PacketEncoder;
-import protocol.Spliter;
-import protocol.command.LoginRequestPacket;
-import protocol.command.MessageRequestPacket;
+import codec.PacketDecoder;
+import codec.PacketEncoder;
+import codec.Spliter;
+import protocol.request.LoginRequestPacket;
+import protocol.request.MessageRequestPacket;
 import utils.SessionUtil;
 
 import java.util.Date;
 import java.util.Scanner;
-import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 public class NettyClient {
@@ -47,6 +50,8 @@ public class NettyClient {
                                 .addLast(new PacketDecoder())
                                 .addLast(new LoginResponseHandler())
                                 .addLast(new MessageResponseHandler())
+                                .addLast(new LogoutResponseHandler())
+                                .addLast(new CreateGroupResponseHandler())
                                 .addLast(new PacketEncoder());
                     }
                 });
@@ -74,32 +79,14 @@ public class NettyClient {
 
     private static void startConsoleThread(Channel channel){
         Scanner scanner = new Scanner(System.in);
+        ConsoleCommandManager consoleCommandManager = new ConsoleCommandManager();
+        LoginConsoleCommand loginConsoleCommand = new LoginConsoleCommand();
         new Thread(()->{
             while(!Thread.interrupted()){
                 if(!SessionUtil.hasLogin(channel)){
-                    System.out.println("输入用户名登陆");
-
-                    String line = scanner.nextLine();
-
-                    LoginRequestPacket login = LoginRequestPacket.builder()
-                            .username(line)
-                            .password("pwd")
-                            .build();
-
-                    channel.writeAndFlush(login);
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    loginConsoleCommand.exec(scanner, channel);
                 }else{
-                    String toUserId = scanner.next();
-                    String message = scanner.next();
-
-                    MessageRequestPacket messageRequestPacket = new MessageRequestPacket();
-                    messageRequestPacket.setMessage(message);
-                    messageRequestPacket.setToUserId(toUserId);
-                    channel.writeAndFlush(messageRequestPacket);
+                    consoleCommandManager.exec(scanner, channel);
                 }
             }
         }).start();
