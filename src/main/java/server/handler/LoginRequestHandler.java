@@ -1,4 +1,4 @@
-package server;
+package server.handler;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -7,13 +7,15 @@ import protocol.command.LoginRequestPacket;
 import protocol.command.LoginResponsePacket;
 import utils.SessionUtil;
 
+import java.util.UUID;
+
 public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginRequestPacket> {
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, LoginRequestPacket loginRequestPacket) throws Exception {
         System.out.println(loginRequestPacket.getUsername() + " 登陆");
         //保存会话
         Session session = Session.builder()
-                .userId(loginRequestPacket.getUserId())
+                .userId(randomUserId())
                 .userName(loginRequestPacket.getUsername()).build();
         SessionUtil.bindSession(session, ctx.channel());
         //构造响应体
@@ -30,5 +32,9 @@ public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginReques
     private boolean valid(LoginRequestPacket loginRequestPacket) {
         //预留校验登陆
         return true;
+    }
+
+    private static String randomUserId() {
+        return UUID.randomUUID().toString().split("-")[0];
     }
 }

@@ -1,7 +1,8 @@
 package client;
 
+import client.handler.LoginResponseHandler;
+import client.handler.MessageResponseHandler;
 import io.netty.bootstrap.Bootstrap;
-import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -9,14 +10,11 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
-import protocol.PacketCodeC;
 import protocol.PacketDecoder;
 import protocol.PacketEncoder;
 import protocol.Spliter;
 import protocol.command.LoginRequestPacket;
 import protocol.command.MessageRequestPacket;
-import utils.LoginUtil;
 import utils.SessionUtil;
 
 import java.util.Date;
@@ -86,7 +84,6 @@ public class NettyClient {
                     LoginRequestPacket login = LoginRequestPacket.builder()
                             .username(line)
                             .password("pwd")
-                            .userId(UUID.randomUUID().toString().substring(0, 4))
                             .build();
 
                     channel.writeAndFlush(login);
