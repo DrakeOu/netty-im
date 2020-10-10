@@ -6,6 +6,7 @@ import protocol.response.MessageResponsePacket;
 
 public class MessageResponseHandler extends SimpleChannelInboundHandler<MessageResponsePacket> {
 
+    public static final MessageResponseHandler INSTANCE = new MessageResponseHandler();
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, MessageResponsePacket messageResponsePacket) throws Exception {

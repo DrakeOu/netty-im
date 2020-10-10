@@ -1,13 +1,12 @@
 package server;
 
+import codec.PacketCodecHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import codec.PacketDecoder;
-import codec.PacketEncoder;
 import codec.Spliter;
 import server.handler.*;
 
@@ -31,16 +30,9 @@ public class NettyServer {
                     protected void initChannel(SocketChannel ch) throws Exception {
                         ch.pipeline()
                                 .addLast(new Spliter())
-                                .addLast(new PacketDecoder())
-                                .addLast(new LoginRequestHandler())
-                                .addLast(new AuthHandler())
-                                .addLast(new MessageRequestHandler())
-                                .addLast(new LogoutRequestHandler())
-                                .addLast(new CreateGroupRequestHandler())
-                                .addLast(new JoinGroupRequestHandler())
-                                .addLast(new GroupMsgRequestHandler())
-                                .addLast(new QuitGroupRequestHandler())
-                                .addLast(new PacketEncoder());
+                                .addLast(PacketCodecHandler.INSTANCE)
+                                .addLast(AuthHandler.INSTANCE)
+                                .addLast(IMHandler.INSTANCE);
                     }
                 });
 

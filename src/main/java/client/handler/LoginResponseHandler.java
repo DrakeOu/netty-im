@@ -8,6 +8,7 @@ import utils.SessionUtil;
 
 public class LoginResponseHandler extends SimpleChannelInboundHandler<LoginResponsePacket> {
 
+    public static final LoginResponseHandler INSTANCE = new LoginResponseHandler();
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, LoginResponsePacket loginResponsePacket) throws Exception {

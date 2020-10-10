@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CreateGroupRequestHandler extends SimpleChannelInboundHandler<CreateGroupRequestPacket> {
+
+    public static final CreateGroupRequestHandler INSTANCE = new CreateGroupRequestHandler();
+
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, CreateGroupRequestPacket createGroupRequestPacket) throws Exception {
         //netty中有channelGroup的概念，可以组装一个group并且按group写数据

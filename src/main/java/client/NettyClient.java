@@ -3,6 +3,7 @@ package client;
 import client.console.ConsoleCommandManager;
 import client.console.LoginConsoleCommand;
 import client.handler.*;
+import codec.PacketCodecHandler;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
@@ -44,15 +45,14 @@ public class NettyClient {
                         ch.pipeline()
                                 //添加拆包粘包处理器
                                 .addLast(new Spliter())
-                                .addLast(new PacketDecoder())
+                                .addLast(PacketCodecHandler.INSTANCE)
                                 .addLast(new LoginResponseHandler())
                                 .addLast(new MessageResponseHandler())
                                 .addLast(new LogoutResponseHandler())
                                 .addLast(new CreateGroupResponseHandler())
                                 .addLast(new JoinGroupResponseHandler())
                                 .addLast(new QuitGroupResponseHandler())
-                                .addLast(new GroupMsgResponseHandler())
-                                .addLast(new PacketEncoder());
+                                .addLast(new GroupMsgResponseHandler());
                     }
                 });
 

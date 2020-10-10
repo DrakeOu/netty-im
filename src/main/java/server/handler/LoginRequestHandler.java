@@ -8,9 +8,11 @@ import protocol.response.LoginResponsePacket;
 import utils.IDUtil;
 import utils.SessionUtil;
 
-import java.util.UUID;
 
 public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginRequestPacket> {
+
+    public static final LoginRequestHandler INSTANCE = new LoginRequestHandler();
+
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, LoginRequestPacket loginRequestPacket) throws Exception {
         System.out.println(loginRequestPacket.getUsername() + " 登陆");

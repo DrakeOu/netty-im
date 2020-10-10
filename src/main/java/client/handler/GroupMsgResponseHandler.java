@@ -5,6 +5,9 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import protocol.response.GroupMsgResponsePacket;
 
 public class GroupMsgResponseHandler extends SimpleChannelInboundHandler<GroupMsgResponsePacket> {
+
+    public static final GroupMsgResponseHandler INSTANCE = new GroupMsgResponseHandler();
+
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, GroupMsgResponsePacket groupMsgResponsePacket) throws Exception {
         System.out.println("收到群消息, ID:" + groupMsgResponsePacket.getGroupId());

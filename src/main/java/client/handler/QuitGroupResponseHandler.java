@@ -7,6 +7,8 @@ import protocol.response.QuitGroupResponsePacket;
 
 public class QuitGroupResponseHandler extends SimpleChannelInboundHandler<QuitGroupResponsePacket> {
 
+    public static final QuitGroupResponseHandler INSTANCE = new QuitGroupResponseHandler();
+
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, QuitGroupResponsePacket quitGroupResponsePacket) throws Exception {
         if(quitGroupResponsePacket.getSuccess()){

@@ -5,6 +5,9 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import protocol.response.JoinGroupResponsePacket;
 
 public class JoinGroupResponseHandler extends SimpleChannelInboundHandler<JoinGroupResponsePacket> {
+
+    public static final JoinGroupResponseHandler INSTANCE = new JoinGroupResponseHandler();
+
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, JoinGroupResponsePacket joinGroupResponsePacket) throws Exception {
         if(joinGroupResponsePacket.getSuccess()){

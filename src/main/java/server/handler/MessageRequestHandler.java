@@ -9,6 +9,9 @@ import protocol.response.MessageResponsePacket;
 import utils.SessionUtil;
 
 public class MessageRequestHandler extends SimpleChannelInboundHandler<MessageRequestPacket> {
+
+    public static final MessageRequestHandler INSTANCE = new MessageRequestHandler();
+
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, MessageRequestPacket messageRequestPacket) throws Exception {
         //1. 拿到发送方的会话

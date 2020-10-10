@@ -9,6 +9,9 @@ import protocol.response.GroupMsgResponsePacket;
 import utils.SessionUtil;
 
 public class GroupMsgRequestHandler extends SimpleChannelInboundHandler<GroupMsgRequestPacket> {
+
+    public static final GroupMsgRequestHandler INSTANCE = new GroupMsgRequestHandler();
+
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, GroupMsgRequestPacket groupMsgRequestPacket) throws Exception {
         Session session = SessionUtil.getSession(ctx.channel());

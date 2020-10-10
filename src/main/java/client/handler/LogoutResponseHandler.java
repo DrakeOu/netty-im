@@ -5,6 +5,9 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import protocol.response.LogoutResponsePacket;
 
 public class LogoutResponseHandler extends SimpleChannelInboundHandler<LogoutResponsePacket> {
+
+    public static final LogoutResponseHandler INSTANCE = new LogoutResponseHandler();
+
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, LogoutResponsePacket logoutResponsePacket) throws Exception {
         if(logoutResponsePacket.getSuccess()){
