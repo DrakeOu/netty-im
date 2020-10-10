@@ -38,6 +38,7 @@ public class NettyServer {
                                 .addLast(new LogoutRequestHandler())
                                 .addLast(new CreateGroupRequestHandler())
                                 .addLast(new JoinGroupRequestHandler())
+                                .addLast(new GroupMsgRequestHandler())
                                 .addLast(new QuitGroupRequestHandler())
                                 .addLast(new PacketEncoder());
                     }
